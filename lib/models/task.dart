@@ -4,7 +4,7 @@ class Task {
   final String id;
   final String title;
   final String description;
-  final String status; // e.g., "To Do", "In Progress", "Done"
+  final String status;
   final List<Comment> comments;
   final Duration timeSpent;
   final DateTime? completionDate;
@@ -19,7 +19,6 @@ class Task {
     this.completionDate,
   });
 
-  // Factory constructor to create a Task object from JSON
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
       id: json['id'],
@@ -32,7 +31,6 @@ class Task {
     );
   }
 
-  // Method to convert a Task object to JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -43,5 +41,25 @@ class Task {
       'timeSpent': timeSpent.inSeconds,
       'completionDate': completionDate?.toIso8601String(),
     };
+  }
+
+  Task copyWith({
+    String? id,
+    String? title,
+    String? description,
+    String? status,
+    List<Comment>? comments,
+    Duration? timeSpent,
+    DateTime? completionDate,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      status: status ?? this.status,
+      comments: comments ?? this.comments,
+      timeSpent: timeSpent ?? this.timeSpent,
+      completionDate: completionDate ?? this.completionDate,
+    );
   }
 }
